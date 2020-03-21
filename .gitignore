@@ -3,3 +3,5 @@
 *.docx
 data/*
 src/.ipynb_checkpoints/*
+src/*.pkl
+src/__pycache__/*
