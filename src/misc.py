@@ -24,11 +24,15 @@ class Study():
         
     @classmethod
     def load_from_file(cls, fn):
-        fns = [fn]
-        dfs = [pd.read_excel(fn, header=None).dropna()]
-        for a in range(len(dfs)):
-            dfs[a]["answers"] = dfs[a][4].apply(Study.get_answers)
-        u = cls(fns, dfs)
+        if op.splitext(fn)[-1] != ".pkl":
+            fns = [fn]
+            dfs = [pd.read_excel(fn, header=None).dropna()]
+            for a in range(len(dfs)):
+                dfs[a]["answers"] = dfs[a][4].apply(Study.get_answers)
+            u = cls(fns, dfs)
+        else:
+            with open(fn, "rb") as ih:
+                u = pkl.load(ih)
         return(u)
         
     @staticmethod
