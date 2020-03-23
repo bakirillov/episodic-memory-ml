@@ -1,13 +1,28 @@
 import re
 import os
+import io
 import numpy as np
 import pandas as pd
 import os.path as op
 import pickle as pkl
+from tqdm import tqdm
 from copy import deepcopy
 from scipy.stats import ks_2samp, median_test
 from sklearn.metrics import roc_auc_score, roc_curve
 from scipy.stats import spearmanr, pearsonr, ks_2samp, chisquare, levene
+
+
+def load_vectors(fname, words):
+    fin = io.open(fname, 'r', encoding='utf-8', newline='\n', errors='ignore')
+    n, d = map(int, fin.readline().split())
+    data = {}
+    for line in tqdm(fin):
+        tokens = line.rstrip().split(' ')
+        word = tokens[0]
+        if word in words.values:
+            data[word] = np.array(list(map(float, tokens[1:])))
+    return(data)
+
 
 
 class Study():
@@ -95,7 +110,9 @@ class Study():
                 answers[w].append(a)
                 reals[w].append(r)
         aucs = {w:[Study.safe_roc_auc(y_true=reals[w], y_score=answers[w])] for w in word_set}
-        return(pd.DataFrame(aucs).T)
+        aucs = pd.DataFrame(aucs).T
+        aucs.columns = ["AUROC"]
+        return(aucs)
     
     def __sub__(self, other):
         a_a = deepcopy(self.fns)
