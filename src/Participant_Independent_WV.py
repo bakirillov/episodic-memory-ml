@@ -56,13 +56,13 @@ if __name__ == "__main__":
     X = data.values[:,1:-1]
     Y = data.values[:,-1:].reshape(-1,)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2)
-    tr_X = deepcopy(train_X)
-    tr_Y = deepcopy(train_Y)
+    tr_X = deepcopy(train_X).astype(np.float32)
+    tr_Y = deepcopy(train_Y).astype(np.float32)
     print(tr_X.shape, tr_Y.shape)
     for a in range(int(args.augs)):
         current_aug = train_X*np.random.normal(size=train_X.shape, loc=1, scale=0.1)
         tr_X = np.concatenate([tr_X, current_aug]).astype(np.float32)
-        tr_Y = np.concatenate([tr_Y, train_Y])
+        tr_Y = np.concatenate([tr_Y, train_Y*np.random.uniform(size=train_Y.shape, low=0.9, high=1.1)])
     print(tr_X.shape, tr_Y.shape)
     tpot = TPOTRegressor(
         generations=20, population_size=5, verbosity=2, scoring="neg_mean_absolute_error", cv=10,
@@ -76,6 +76,8 @@ if __name__ == "__main__":
         "aug.SCC": [float(a) for a in spearmanr(tr_Y, tr_Yhat)],
         "train.SCC": [float(a) for a in spearmanr(train_Y, train_Yhat)],
         "test.SCC": [float(a) for a in spearmanr(test_Y, test_Yhat)],
+        "train.reals": [float(a) for a in train_Y],
+        "train.preds": [float(a) for a in train_Yhat],
         "train.aug.reals": [float(a) for a in tr_Y],
         "train.aug.preds": [float(a) for a in tr_Yhat],
         "test.reals": [float(a) for a in test_Y],
