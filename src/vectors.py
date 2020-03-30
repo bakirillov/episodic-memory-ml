@@ -63,9 +63,11 @@ if __name__ == "__main__":
     if args.participant == "all":
         pd.DataFrame(data).T.join(word_aucs).to_csv(args.output)
     else:
-        answers = {
-            "answers": study[int(args.participant)][1]["answers"].values,
-            "words": words.values
-        }
-        pd.DataFrame(data).T.join(pd.DataFrame(answers)).to_csv(args.output)
+        answers = pd.DataFrame(
+            {
+                "answers": study[int(args.participant)][1]["answers"].values,
+            }
+        )
+        answers.index = words.values
+        pd.DataFrame(data).T.join(answers).to_csv(args.output)
     
