@@ -26,6 +26,8 @@ def load_vectors(fname, words):
 
 
 class Study():
+    english = "abcdefghijklmnopqrstuvwxyz"
+    russian = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя"
     
     def __init__(self, fns, dfs):
         self.fns = fns
@@ -36,6 +38,16 @@ class Study():
     
     def __len__(self):
         return(len(self.fns))
+        
+    @staticmethod
+    def onehot(a, max_length=13):
+        alph = Study.russian if a[0] in Study.russian else Study.english
+        n = len(alph)
+        m = np.zeros(shape=(n,max_length))
+        for i,letter in enumerate(a):
+            j = alph.index(letter)
+            m[j,i] += 1
+        return(m.reshape(-1))
         
     @classmethod
     def load_from_file(cls, fn):
