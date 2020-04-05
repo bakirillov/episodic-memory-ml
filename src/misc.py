@@ -40,14 +40,18 @@ class Study():
         return(len(self.fns))
         
     @staticmethod
-    def onehot(a, max_length=13):
+    def onehot(a, max_length=13, color=False):
         alph = Study.russian if a[0] in Study.russian else Study.english
         n = len(alph)
         m = np.zeros(shape=(n,max_length))
         for i,letter in enumerate(a):
             j = alph.index(letter)
             m[j,i] += 1
-        return(m.reshape(-1))
+        m = m.reshape(-1)
+        if not color:
+            return(m)
+        else:
+            return(np.array([[255, 255, 255] if a == 1 else [0,0,0] for a in m]))
         
     @classmethod
     def load_from_file(cls, fn):
@@ -84,7 +88,7 @@ class Study():
             return(r)
     
     def compute_word_set(self):
-        return(sum([list(a[2]) for a in self.dfs], []))
+        return(list(set(sum([list(a[2]) for a in self.dfs], []))))
     
     def compute_study_aucs(self):
         return(

@@ -5,7 +5,6 @@
 
 
 import io
-import umap
 import json
 import torch
 import joblib
@@ -17,7 +16,6 @@ import pickle as pkl
 from tqdm import tqdm
 from copy import deepcopy
 from tpot import TPOTRegressor
-import matplotlib.pyplot as plt
 from autoPyTorch import AutoNetRegression
 from scipy.stats import pearsonr, spearmanr
 from sklearn.model_selection import train_test_split

@@ -11,3 +11,6 @@ src/__pycache__/*
 models/*
 unpacked/*
 results/*
+images/*
+src/worker_logs_-1
+src/worker_logs_-1/*
