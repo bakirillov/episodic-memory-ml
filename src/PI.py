@@ -53,7 +53,6 @@ if __name__ == "__main__":
         help="set the number of augmentations"
     )
     args = parser.parse_args()
-    OUT_MASK = op.join(args.output, op.split(args.dataset)[-1])
     np.random.seed(int(args.seed))
     data = pd.read_csv(args.dataset)
     X = data.values[:,1:-1]
@@ -76,8 +75,8 @@ if __name__ == "__main__":
         tr_Yhat = tpot.fitted_pipeline_.predict(tr_X)
         train_Yhat = tpot.fitted_pipeline_.predict(train_X)
         test_Yhat = tpot.fitted_pipeline_.predict(test_X)
-        tpot.export(OUT_MASK+".py")
-        joblib.dump(tpot.fitted_pipeline_, OUT_MASK+".joblib")
+        tpot.export(args.output+".py")
+        joblib.dump(tpot.fitted_pipeline_, args.output+".joblib")
     else:
         auto = AutoNetRegression(
             "tiny_cs",
@@ -89,7 +88,7 @@ if __name__ == "__main__":
         tr_Yhat = auto.predict(tr_X)
         train_Yhat = auto.predict(train_X)
         test_Yhat = auto.predict(test_X)
-        torch.save(auto, OUT_MASK+".pt")
+        torch.save(auto, args.output+".pt")
     results = {
         "aug.SCC": [float(a) for a in spearmanr(tr_Y, tr_Yhat)],
         "train.SCC": [float(a) for a in spearmanr(train_Y, train_Yhat)],
@@ -102,6 +101,6 @@ if __name__ == "__main__":
         "test.preds": [float(a) for a in test_Yhat],
     }
     print(results["aug.SCC"], results["train.SCC"], results["test.SCC"])
-    with open(OUT_MASK+".json", "w") as oh:
+    with open(args.output+".json", "w") as oh:
         oh.write(json.dumps(results))
     
