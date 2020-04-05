@@ -55,9 +55,12 @@ if __name__ == "__main__":
     else:
         words = study[int(args.participant)][1][2]
     if args.what == "wv":
-        data = load_vectors(
-            args.vectors, words
-        )    
+        if "vec" in op.splitext(args.vectors):
+            data = load_vectors(
+                args.vectors, words
+            )
+        else:
+            data = pd.read_csv(args.vectors, index_col=0).T[0:-1]
     elif args.what == "1hot":
         data = {a:Study.onehot(a) for a in words}
     if args.participant == "all":
@@ -69,5 +72,5 @@ if __name__ == "__main__":
             }
         )
         answers.index = words.values
-        pd.DataFrame(data).T.join(answers).to_csv(args.output)
+        pd.DataFrame(data).T.join(answers).dropna().to_csv(args.output)
     
