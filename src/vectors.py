@@ -55,7 +55,7 @@ if __name__ == "__main__":
     else:
         words = study[int(args.participant)][1][2]
     if args.what == "wv":
-        if "vec" in op.splitext(args.vectors):
+        if "vec" in args.vectors:
             data = load_vectors(
                 args.vectors, words
             )

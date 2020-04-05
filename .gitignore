@@ -10,3 +10,4 @@ src/*.pt
 src/__pycache__/*
 models/*
 unpacked/*
+results/*
