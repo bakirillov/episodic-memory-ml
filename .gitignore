@@ -5,5 +5,7 @@ data/*
 src/.ipynb_checkpoints/*
 src/*.pkl
 src/*.csv
+src/*.pt
 src/__pycache__/*
 models/*
+unpacked/*
