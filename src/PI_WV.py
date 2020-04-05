@@ -7,6 +7,7 @@
 import io
 import umap
 import json
+import torch
 import joblib
 import argparse
 from misc import *
@@ -17,6 +18,7 @@ from tqdm import tqdm
 from copy import deepcopy
 from tpot import TPOTRegressor
 import matplotlib.pyplot as plt
+from autoPyTorch import AutoNetRegression
 from scipy.stats import pearsonr, spearmanr
 from sklearn.model_selection import train_test_split
 
@@ -64,14 +66,29 @@ if __name__ == "__main__":
         tr_X = np.concatenate([tr_X, current_aug]).astype(np.float32)
         tr_Y = np.concatenate([tr_Y, train_Y*np.random.uniform(size=train_Y.shape, low=0.9, high=1.1)])
     print(tr_X.shape, tr_Y.shape)
-    tpot = TPOTRegressor(
-        generations=20, population_size=5, verbosity=2, scoring="neg_mean_absolute_error", cv=10,
-        config_dict="TPOT light"
-    )
-    tpot.fit(tr_X, tr_Y)
-    tr_Yhat = tpot.fitted_pipeline_.predict(tr_X)
-    train_Yhat = tpot.fitted_pipeline_.predict(train_X)
-    test_Yhat = tpot.fitted_pipeline_.predict(test_X)
+    if "1hot" not in args.dataset:
+        tpot = TPOTRegressor(
+            generations=20, population_size=5, verbosity=2, scoring="neg_mean_absolute_error", cv=10,
+            config_dict="TPOT light"
+        )
+        tpot.fit(tr_X, tr_Y)
+        tr_Yhat = tpot.fitted_pipeline_.predict(tr_X)
+        train_Yhat = tpot.fitted_pipeline_.predict(train_X)
+        test_Yhat = tpot.fitted_pipeline_.predict(test_X)
+        tpot.export(OUT_MASK+".py")
+        joblib.dump(tpot.fitted_pipeline_, OUT_MASK+".joblib")
+    else:
+        auto = AutoNetRegression(
+            "tiny_cs",
+            log_level='info',
+            max_runtime=300,
+            min_budget=30,
+            max_budget=90
+        )
+        tr_Yhat = auto.predict(tr_X)
+        train_Yhat = auto.predict(train_X)
+        test_Yhat = auto.predict(test_X)
+        torch.save(auto, OUT_MASK+".pt")
     results = {
         "aug.SCC": [float(a) for a in spearmanr(tr_Y, tr_Yhat)],
         "train.SCC": [float(a) for a in spearmanr(train_Y, train_Yhat)],
@@ -87,5 +104,4 @@ if __name__ == "__main__":
     OUT_MASK = op.join(args.output, op.split(args.dataset)[-1])
     with open(OUT_MASK+".json", "w") as oh:
         oh.write(json.dumps(results))
-    tpot.export(OUT_MASK+".py")
-    joblib.dump(tpot.fitted_pipeline_, OUT_MASK+".joblib")
+    
