@@ -85,6 +85,7 @@ if __name__ == "__main__":
             min_budget=30,
             max_budget=90
         )
+        auto.fit(tr_X, tr_Y)
         tr_Yhat = auto.predict(tr_X)
         train_Yhat = auto.predict(train_X)
         test_Yhat = auto.predict(test_X)
