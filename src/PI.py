@@ -53,6 +53,7 @@ if __name__ == "__main__":
         help="set the number of augmentations"
     )
     args = parser.parse_args()
+    OUT_MASK = op.join(args.output, op.split(args.dataset)[-1])
     np.random.seed(int(args.seed))
     data = pd.read_csv(args.dataset)
     X = data.values[:,1:-1]
@@ -101,7 +102,6 @@ if __name__ == "__main__":
         "test.preds": [float(a) for a in test_Yhat],
     }
     print(results["aug.SCC"], results["train.SCC"], results["test.SCC"])
-    OUT_MASK = op.join(args.output, op.split(args.dataset)[-1])
     with open(OUT_MASK+".json", "w") as oh:
         oh.write(json.dumps(results))
     
