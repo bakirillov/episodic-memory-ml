@@ -1,1 +1,0 @@
-[[0, 0, 0], 15.0, {"submitted": 1586144212.627444, "started": 1586144212.627444, "finished": 1586144233.1654274}, {"loss": -98.80952380952381, "info": {"train_loss": 0.049647752195596695, "train_accuracy": 98.80952380952381, "epochs": 36, "model_parameters": 110832, "learning_rate": 0.0001336088442304031, "train_datapoints": 157}}, null]
