@@ -6,6 +6,7 @@
 
 import io
 import json
+import torch
 import joblib
 import argparse
 from misc import *
@@ -53,8 +54,12 @@ if __name__ == "__main__":
     X = data.values[:,1:-1]
     Y = data.values[:,-1:].reshape(-1,)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2)
-    tr_X = deepcopy(train_X).astype(np.float32)
-    tr_Y = deepcopy(train_Y).astype(np.int32)
+    if "_1hot_" not in args.dataset:
+        tr_X = deepcopy(train_X).astype(np.float32)
+        tr_Y = deepcopy(train_Y).astype(np.int32)
+    else:
+        tr_X = deepcopy(train_X)
+        tr_Y = deepcopy(train_Y).astype(np.int32)
     print(tr_X.shape, tr_Y.shape)
     for a in range(int(args.augs)):
         current_aug = train_X*np.random.normal(size=train_X.shape, loc=1, scale=0.1)
@@ -70,20 +75,23 @@ if __name__ == "__main__":
         tr_Yhat = tpot.fitted_pipeline_.predict(tr_X)
         train_Yhat = tpot.fitted_pipeline_.predict(train_X)
         test_Yhat = tpot.fitted_pipeline_.predict(test_X)
-        joblib.dump(tpot.fitted_pipeline_, OUT_MASK+".joblib")
+        tpot.export(args.output+".py")
+        joblib.dump(tpot.fitted_pipeline_, args.output+".joblib")
     else:
         auto = AutoNetImageClassification(
-            "tiny_cs",
+            "medium_cs",
             log_level='info',
-            max_runtime=300,
-            min_budget=30,
-            max_budget=90
+            max_runtime=100,
+            min_budget=15,
+            max_budget=45
         )
-        auto.fit(tr_X.reshape(-1, int(tr_X.shape[1]/13), 13), tr_Y)
-        tr_Yhat = auto.predict(tr_X)
-        train_Yhat = auto.predict(train_X)
-        test_Yhat = auto.predict(test_X)
-        torch.save(auto, args.output+".pt")
+        tr_X = np.array([op.join("../images/", a[0]+".png") for a in tr_X])
+        train_X = np.array([op.join("../images/", a[0]+".png") for a in train_X])
+        test_X = np.array([op.join("../images/", a[0]+".png") for a in test_X])
+        auto.fit(tr_X, tr_Y)
+        tr_Yhat = np.argmax(auto.predict(tr_X)["Y"], 1)
+        train_Yhat = np.argmax(auto.predict(train_X)["Y"], 1)
+        test_Yhat = np.argmax(auto.predict(test_X)["Y"], 1)
     results = {
         "train.reals": [float(a) for a in train_Y],
         "train.preds": [float(a) for a in train_Yhat],
@@ -94,4 +102,3 @@ if __name__ == "__main__":
     }
     with open(args.output+".json", "w") as oh:
         oh.write(json.dumps(results))
-    tpot.export(args.output+".py")

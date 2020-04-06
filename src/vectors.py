@@ -62,7 +62,10 @@ if __name__ == "__main__":
         else:
             data = pd.read_csv(args.vectors, index_col=0).T[0:-1]
     elif args.what == "1hot":
-        data = {a:Study.onehot(a) for a in words}
+        if "_1hot_" not in args.output:
+            data = {a:Study.onehot(a) for a in words}
+        else:
+            data = {a:[a] for a in words}
     if args.participant == "all":
         pd.DataFrame(data).T.join(word_aucs).to_csv(args.output)
     else:
