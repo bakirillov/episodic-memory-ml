@@ -16,3 +16,5 @@ src/worker_logs_-1
 src/worker_logs_-1/*
 src/ns_credentials_0
 src/ns_credentials_0/*
+src/runs.log.lock
+src/runs.log
