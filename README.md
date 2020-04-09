@@ -4,6 +4,6 @@ Sources for "Examining the effects of transcranial direct current stimulation on
 
 ## Reproduction instructions
 1. Run Figures_1,2,3.ipynb;
-2. Run this notebook;
+2. Run Reproduce.ipynb;
 3. Run the generated scripts.
 
