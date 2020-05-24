@@ -8,4 +8,4 @@ The data can be downloaded from Zenodo (10.5281/zenodo.3837111).
 1. Run Figures_1,2,3.ipynb;
 2. Run Reproduce.ipynb;
 3. Run the generated scripts;
-4. Run the Appendix_\*.ipynb files.
+4. Run the following files: Appendix2.ipynb, Appendix3.ipynb, Appendix4.ipynb.
