@@ -25,19 +25,19 @@ if __name__ == "__main__":
     parser.add_argument(
         "-d", "--dataset",
         dest="dataset",
-        action="store", 
+        action="store",
         help="Path to file with the dataset"
     )
     parser.add_argument(
         "-o", "--output",
         dest="output",
-        action="store", 
+        action="store",
         help="set the mask of output file"
     )
     parser.add_argument(
         "-s", "--seed",
         dest="seed",
-        action="store", 
+        action="store",
         default=7,
         help="set the seed for PRNG"
     )
@@ -51,8 +51,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     np.random.seed(int(args.seed))
     data = pd.read_csv(args.dataset)
-    X = data.values[:,1:-1]
-    Y = data.values[:,-1:].reshape(-1,)
+    X = data.values[:, 1:-1]
+    Y = data.values[:, -1:].reshape(-1,)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2)
     if "_1hot_" not in args.dataset:
         tr_X = deepcopy(train_X).astype(np.float32)
@@ -62,13 +62,16 @@ if __name__ == "__main__":
         tr_Y = deepcopy(train_Y).astype(np.int32)
     print(tr_X.shape, tr_Y.shape)
     for a in range(int(args.augs)):
-        current_aug = train_X*np.random.normal(size=train_X.shape, loc=1, scale=0.1)
+        current_aug = train_X*np.random.normal(
+            size=train_X.shape, loc=1, scale=0.1
+        )
         tr_X = np.concatenate([tr_X, current_aug]).astype(np.float32)
         tr_Y = np.concatenate([tr_Y, train_Y]).astype(np.int32)
     print(tr_X.shape, tr_Y.shape)
     if "1hot" not in args.dataset:
         tpot = TPOTClassifier(
-            generations=20, population_size=5, verbosity=2, scoring="balanced_accuracy", cv=10,
+            generations=20, population_size=5,
+            verbosity=2, scoring="balanced_accuracy", cv=10,
             config_dict="TPOT light", random_state=int(args.seed)
         )
         tpot.fit(tr_X, tr_Y)
@@ -86,7 +89,9 @@ if __name__ == "__main__":
             max_budget=45
         )
         tr_X = np.array([op.join("../images/", a[0]+".png") for a in tr_X])
-        train_X = np.array([op.join("../images/", a[0]+".png") for a in train_X])
+        train_X = np.array(
+            [op.join("../images/", a[0]+".png") for a in train_X]
+        )
         test_X = np.array([op.join("../images/", a[0]+".png") for a in test_X])
         auto.fit(tr_X, tr_Y)
         tr_Yhat = np.argmax(auto.predict(tr_X)["Y"], 1)

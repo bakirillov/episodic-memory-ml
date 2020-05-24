@@ -9,21 +9,23 @@ from misc import *
 import pandas as pd
 
 
+DEFPATH = "/home/bakirillov/HDD/weights/fasttext/aligned/wiki.en.align.vec"
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-v", "--vectors",
         dest="vectors",
-        action="store", 
-        help="Path to file with aligned vectors", 
-        default="/home/bakirillov/HDD/weights/fasttext/aligned/wiki.en.align.vec"
+        action="store",
+        help="Path to file with aligned vectors",
+        default=DEFPATH
     )
     parser.add_argument(
         "-s", "--study",
         dest="study",
-        action="store", 
-        help="Path to study data file", 
+        action="store",
+        help="Path to study data file",
         default="en_study.pkl"
     )
     parser.add_argument(
@@ -36,7 +38,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-o", "--output",
         dest="output",
-        action="store", 
+        action="store",
         help="set the path of output file"
     )
     parser.add_argument(
@@ -63,9 +65,9 @@ if __name__ == "__main__":
             data = pd.read_csv(args.vectors, index_col=0).T[0:-1]
     elif args.what == "1hot":
         if "_1hot_" not in args.output:
-            data = {a:Study.onehot(a) for a in words}
+            data = {a: Study.onehot(a) for a in words}
         else:
-            data = {a:[a] for a in words}
+            data = {a: [a] for a in words}
     if args.participant == "all":
         pd.DataFrame(data).T.join(word_aucs).to_csv(args.output)
     else:
@@ -73,9 +75,10 @@ if __name__ == "__main__":
         given = study[int(args.participant)][1]["answers"].values
         answers = pd.DataFrame(
             {
-                "answers": np.array([int(a == b) for a,b in zip(real_answers, given)]),
+                "answers": np.array(
+                    [int(a == b) for a, b in zip(real_answers, given)]
+                ),
             }
         )
         answers.index = words.values
         pd.DataFrame(data).T.join(answers).dropna().to_csv(args.output)
-    

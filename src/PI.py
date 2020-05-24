@@ -26,20 +26,20 @@ if __name__ == "__main__":
     parser.add_argument(
         "-d", "--dataset",
         dest="dataset",
-        action="store", 
-        help="Path to file with the dataset", 
+        action="store",
+        help="Path to file with the dataset",
         default="english.csv"
     )
     parser.add_argument(
         "-o", "--output",
         dest="output",
-        action="store", 
+        action="store",
         help="set the mask of output file"
     )
     parser.add_argument(
         "-s", "--seed",
         dest="seed",
-        action="store", 
+        action="store",
         default=7,
         help="set the seed for PRNG"
     )
@@ -53,20 +53,30 @@ if __name__ == "__main__":
     args = parser.parse_args()
     np.random.seed(int(args.seed))
     data = pd.read_csv(args.dataset)
-    X = data.values[:,1:-1]
-    Y = data.values[:,-1:].reshape(-1,)
+    X = data.values[:, 1:-1]
+    Y = data.values[:, -1:].reshape(-1,)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2)
     tr_X = deepcopy(train_X).astype(np.float32)
     tr_Y = deepcopy(train_Y).astype(np.float32)
     print(tr_X.shape, tr_Y.shape)
     for a in range(int(args.augs)):
-        current_aug = train_X*np.random.normal(size=train_X.shape, loc=1, scale=0.1)
+        current_aug = train_X*np.random.normal(
+            size=train_X.shape, loc=1, scale=0.1
+        )
         tr_X = np.concatenate([tr_X, current_aug]).astype(np.float32)
-        tr_Y = np.concatenate([tr_Y, train_Y*np.random.uniform(size=train_Y.shape, low=0.9, high=1.1)])
+        tr_Y = np.concatenate(
+            [
+                tr_Y,
+                train_Y*np.random.uniform(
+                    size=train_Y.shape, low=0.9, high=1.1
+                )
+            ]
+        )
     print(tr_X.shape, tr_Y.shape)
     if "1hot" not in args.dataset:
         tpot = TPOTRegressor(
-            generations=20, population_size=5, verbosity=2, scoring="neg_mean_absolute_error", cv=10,
+            generations=20, population_size=5,
+            verbosity=2, scoring="neg_mean_absolute_error", cv=10,
             config_dict="TPOT light"
         )
         tpot.fit(tr_X, tr_Y)
@@ -102,4 +112,3 @@ if __name__ == "__main__":
     print(results["aug.SCC"], results["train.SCC"], results["test.SCC"])
     with open(args.output+".json", "w") as oh:
         oh.write(json.dumps(results))
-    
