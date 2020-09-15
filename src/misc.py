@@ -90,7 +90,17 @@ class Study():
             r = 0.5
         finally:
             return(r)
-
+        
+    @staticmethod
+    def hits_and_FAs(y_true, y_score):
+        hits = sum(
+            [int(a == b and a != 0) for a,b in zip(y_true, y_score)]
+        )/y_true.shape[0]
+        FAs = sum(
+            [int(a != b and b != 0) for a,b in zip(y_true, y_score)]
+        )/y_true.shape[0]
+        return(hits, FAs)
+        
     def compute_word_set(self):
         return(list(set(sum([list(a[2]) for a in self.dfs], []))))
 
@@ -98,6 +108,15 @@ class Study():
         return(
             [
                 Study.safe_roc_auc(
+                    y_true=a[5], y_score=a["answers"]
+                ) for a in self.dfs
+            ]
+        )
+    
+    def compute_hits_and_FAs(self):
+        return(
+            [
+                Study.hits_and_FAs(
                     y_true=a[5], y_score=a["answers"]
                 ) for a in self.dfs
             ]
