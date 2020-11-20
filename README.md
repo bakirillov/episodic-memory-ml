@@ -5,7 +5,7 @@ Sources for "Examining the effects of transcranial direct current stimulation on
 Biorxiv preprint - https://www.biorxiv.org/content/10.1101/2020.06.11.145805v1
 
 ## The data
-The data can be downloaded from Zenodo (10.5281/zenodo.3837111).
+The data can be downloaded from Zenodo (10.5281/zenodo.4247643).
 
 ## Reproduction instructions
 1. Run Figures_1,2,3.ipynb;
