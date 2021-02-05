@@ -1,0 +1,839 @@
+% Template for PLoS
+% Version 3.5 March 2018
+%
+% % % % % % % % % % % % % % % % % % % % % %
+%
+% -- IMPORTANT NOTE
+%
+% This template contains comments intended 
+% to minimize problems and delays during our production 
+% process. Please follow the template instructions
+% whenever possible.
+%
+% % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Once your paper is accepted for publication, 
+% PLEASE REMOVE ALL TRACKED CHANGES in this file 
+% and leave only the final text of your manuscript. 
+% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
+% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
+%
+%
+% There are no restrictions on package use within the LaTeX files except that 
+% no packages listed in the template may be deleted.
+%
+% Please do not include colors or graphics in the text.
+%
+% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
+%
+% % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- FIGURES AND TABLES
+%
+% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
+%
+% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
+% - Figures should be uploaded separately from your manuscript file. 
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
+% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
+% For figure citations, please use "Fig" instead of "Figure".
+% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
+%
+% Tables should be cell-based and may not contain:
+% - spacing/line breaks within cells to alter layout or alignment
+% - do not nest tabular environments (no tabular environments within tabular environments)
+% - no graphics or colored text (cell background color/shading OK)
+% See http://journals.plos.org/plosone/s/tables for table guidelines.
+%
+% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
+%
+% IMPORTANT
+% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
+%
+% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
+%
+% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
+%
+% Please add line breaks to long display equations when possible in order to fit size of the column. 
+%
+% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
+%
+% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
+%
+% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
+%
+% % % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Please contact latex@plos.org with any questions.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
+
+
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{easyeqn}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+% line numbers
+\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+
+% Remove comment for double spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% Use the PLoS provided BiBTeX style
+\bibliographystyle{plos2015}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+
+%% Include all macros below
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+%% END MACROS SECTION
+
+
+\begin{document}
+\vspace*{0.2in}
+
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{Examining the effects of transcranial direct current stimulation on human episodic memory with machine learning} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}
+
+
+\newline
+% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
+\\
+Aleksandra Petrovskaya\textsuperscript{1,2,3\Yinyang},
+Bogdan Kirillov\textsuperscript{4*\Yinyang},
+Anastasiya Asmolova\textsuperscript{1,2},
+Giulia Galli\textsuperscript{5},
+Matteo Feurra\textsuperscript{1,2\ddag},
+Angela Medvedeva\textsuperscript{6\ddag},
+%Name7 Surname\textsuperscript{1,2,3*},
+%with the Lorem Ipsum Consortium\textsuperscript{\textpilcrow}
+\\
+\bigskip
+\textbf{1} Psychology Department, National Research University Higher School of Economics, 109316, Moscow, Russian Federation
+\\
+\textbf{2} Institute of Cognitive Neuroscience, National Research University Higher School of Economics, 109316, Moscow, Russian Federation
+\\
+\textbf{3} Engelhardt Institute of Molecular Biology, Russian Academy of Sciences, 119991, Moscow, Russian Federation (current affiliation)
+\\
+\textbf{4} Center of Life Sciences, Skolkovo Institute of Science and Technology, 121205, Skolkovo, Russia
+\\
+\textbf{5} Department of Psychology, Kingston University, Penrhyn Road, Kingston Upon Thames KT1 2EE, United Kingdom 
+\\
+\textbf{6} Vivian L. Smith Department of Neurosurgery, University of Texas Medical School at Houston, Houston, Texas 77030, United States
+\\
+\bigskip
+
+
+% Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
+% 
+% Remove or comment out the author notes below if they aren't used.
+%
+% Primary Equal Contribution Note
+\Yinyang These authors contributed equally to this work.
+
+% Additional Equal Contribution Note
+% Also use this double-dagger symbol for special authorship notes, such as senior authorship.
+\ddag These authors share senior authorship.
+
+% Current address notes
+% \textcurrency Current Address: Dept/Program/Center, Institution Name, City, State, Country % change symbol to "\textcurrency a" if more than one current address note
+% \textcurrency b Insert second current address 
+% \textcurrency c Insert third current address
+
+% Deceased author note
+%\dag Deceased
+
+% Group/Consortium Author Note
+%\textpilcrow Membership list can be found in the Acknowledgments section.
+
+% Use the asterisk to denote corresponding authorship and provide email address in note below.
+* Bogdan.Kirillov@skoltech.ru
+
+\end{flushleft}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ARTICLE START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Abstract}
+We aimed to replicate a published effect of transcranial direct-current stimulation (tDCS)-induced recognition enhancement over the human ventrolateral prefrontal cortex (VLPFC) and analyse the data with machine learning. We investigated effects over an adjacent region, the dorsolateral prefrontal cortex (DLPFC). In total, we analyzed data from 97 participants after exclusions.  We found weak or absent effects over the VLPFC and DLPFC. We conducted machine learning studies to examine the effects of semantic and phonetic features on memorization, which revealed no effect of VLPFC tDCS on the original dataset or the current data. The highest contributing factor to memory performance was individual differences in memory not explained by word features, tDCS group, or sample size, while semantic, phonetic, and orthographic word characteristics did not contribute significantly. To our knowledge, this is the first tDCS study to investigate cognitive effects with machine learning, and future studies may benefit from studying physiological as well as cognitive effects with data-driven approaches and computational models.
+
+\section*{Author summary}
+Non-Invasive Brain Stimulation techniques (in our case, transcranial direct current stimulation) are widely used among neuroscientists to map cognitive processes, for example, memory, decision making, emotional processing. In many cases, the sample size is limited, or methods applied for the data analysis are questionable. Here we propose a replication study aiming at confirmation of memory enhancement as a result of the application of anodal transcranial direct stimulation over the ventrolateral prefrontal cortex. Additionally, the involvement of the dorsolateral prefrontal cortex into episodic memory was analyzed. We used a larger sample size and applied different data analysis methods, including machine learning techniques. Surprisingly, we did not replicate the results of the original study. However, what is most remarkable is that we have observed no significant effect of tDCS involvement on memory performance.
+Мachine learning methods revealed no effect of linguistic factors on tDCS effect for both the original study and the replication at the level of individual trials and participants. Our findings highlight the importance of considering individual differences and data on the level of a single trial; in our data, participants’ memory responses resembled guessing behavior when recognition performance was measured by AUROC and highlight the need for modifications in the memory test and the use of other performance measures.
+
+\linenumbers
+
+\section{Introduction}
+Transcranial direct-current stimulation (tDCS), a method of safely and non-invasively delivering a weak electric current through the cortex, has been gaining increasing
+attention~\cite{polania2018studying} as a tool for studying and possibly enhancing episodic memory~\cite{galli2019systematic}. Anodal tDCS (atDCS) involves increasing cortical excitability in a target region such as the dorsolateral prefrontal cortex (DLPFC), which may in turn facilitate or enhance memory        performance by decreasing reaction time and/or increasing memory accuracy~\cite{floel2004prefrontal, jacobson2012oppositional, leach2019differential, manenti2013enhancing, lafontaine2013transcranial, javadi2013transcranial, javadi2012transcranial}. However, there remains well-founded skepticism about widespread applications of tDCS, partly
+because of the lack of knowledge about mechanisms of action~\cite{giordano2017mechanisms} and difficulty in
+replicating results~\cite{heroux2017questionable}.
+
+Most tDCS studies in episodic memory have targeted the DLPFC (see~\cite{manenti2012transcranial} for a review) because of its role in selective attention~\cite{szczepanski2014insights}, strategic retrieval~\cite{fuster2000executive}, and other executive functions involved in episodic memory~\cite{habich2017anodal}. In line with the hemispheric encoding/retrieval asymmetry model~\cite{nyberg1996pet}, previous studies with tDCS show functional asymmetry in the DLPFC, with stimulation over the left DLPFC affecting encoding and stimulation over the right DLPFC affecting retrieval~\cite{javadi2013transcranial, javadi2012transcranial, manenti2013enhancing}. However, memory enhancements due to atDCS have been inconsistent over the DLPFC, in both individual studies~\cite{lara2017anodal, javadi2013transcranial, javadi2012transcranial, habich2017anodal, zwissler2014shaping} and meta-analyses~\cite{brunoni2014working, dedoncker2016systematic, dedoncker2016effect}. Most studies over the DLPFC examined effects when atDCS was delivered predominantly during encoding. At least two studies examined purely offline encoding effects:~\cite{lafontaine2013transcranial} delivered atDCS over F3 for 15 minutes before encoding and found no effects on accuracy or reaction time, although atDCS over the contralateral hemisphere (F4) led to faster reaction times.  Lu and colleagues [20] delivered atDCS over a more lateral site (FC5) for 20 minutes before encoding and found an increase in correct memory responses for previously-presented items.
+
+To the authors’ knowledge, no study to date has systematically examined effects of timing of administration on the DLPFC, comparing online vs offline effects at encoding or retrieval. However, a previous study by the authors showed significant differences in online and offline effects over an adjacent site, the left VLPFC ~\cite{medvedeva2019effects}.  The authors administered atDCS before the study phase (offline encoding) or during the study task (online encoding) that involved intentionally memorizing each presented word (Experiment 1).  As expected given support from fMRI and TMS studies, the left
+VLPFC seemed to be strongly modulated by atDCS at encoding, specifically online but not offline encoding.
+ 
+
+The VLPFC and DLPFC are thought to play functionally distinct roles in long-term verbal memory, and the left VLPFC appears selectively engaged in  verbal but not non-verbal material. Specifically, the VLPFC may be more involved in encoding for individual items, while the DLPFC is more engaged in associative or relational encoding~\cite{murray2007dorsolateral, blumenfeld2007prefrontal, blumenfeld2011putting, blumenfeld2013lateral}. Moreover, activation in the DLPFC may predict long-term memory success through DLPFC involvement in domain-general working-memory or executive processes such as mental manipulation of information (e.g. visualizing rotating objects;~\cite{blumenfeld2006dorsolateral}) and applying a specific strategy (e.g. for retrieval of information;~\cite{hawco2013dorsolateral}). In a tDCS study conducted by~\cite{hammer2011errorless}, tDCS was applied over the left DLPFC in a cued-word-completion task to modulate memory performance. In the error learning condition, participants had to make errors in completing the word by guessing, whereas the non-error condition involved learning the correct completions for the word stem. The results showed that cathodal stimulation led to decreased memory accuracy after error  learning but not non-error learning compared to sham. Anodal tDCS did not significantly influence memory accuracy in either condition (error or non-error learning). The errors were evoked through guessing, or the incorrect completion lowered memory accuracy in contrast to a non-error condition or anodal stimulation in either condition (no effect). They concluded that the DLPFC was only modulated when its processing demands were higher for conflicting information. In contrast, the VLPFC appears to be engaged in maintaining information in working memory~\cite{takahashi2007diffusion} and processing semantic information including accessing lexical identity and connecting words to other words in the semantic network~\cite{raposo2009ventrolateral}. 
+
+The current study involved administering atDCS over the left DLPFC during offline or online encoding to identify the effective time of administration and confirm the causal role of the DLPFC in encoding processes. Participants were assigned to a Sham group (over the DLPFC) or one of three tDCS groups: DLPFC Online, DLPFC Offline, and VLPFC Online. Previous research suggests that atDCS could potentially enhance memory performance when delivered online or offline encoding over the DLPFC~\cite{sandrini2014noninvasive, lu2015spatiotemporal, pisoni2015guess, balzarotti2016effects, pergolizzi2016transcranial}, so we predicted higher memory performance for either condition (DLPFC Online or DLPFC Offline). In addition, the study provides a novel comparison of atDCS effects during encoding over the VLPFC vs DLPFC. We predicted a successful replication of Experiment 1 from~\cite{medvedeva2019effects} with higher memory accuracy for the VLPFC Online group compared to Sham, but we also predicted a larger effect size for VLPFC Online than DLPFC Online or DLPFC Offline based on previous rTMS studies comparing memory disruption in the VLPFC vs DLPFC. For example,~\cite{blumenfeld2014effects} found that stimulation over the VLPFC during encoding led to a greater disruption in memory performance than over the DLPFC, suggesting that the VLPFC may play a more important role in encoding processes. Finally, there remains a lack of knowledge about the mechanisms of atDCS on verbal memory and whether atDCS effects can be influenced by word characteristics, specifically semantic (meaning), orthographic (letters), and phonological (sounds). We also aimed to examine how the tDCS effects interacted with language and linguistic factors, since the replication study was conducted in Russian and the original study was conducted in English. Thus, data were applied from a previously-published experiment (\cite{medvedeva2019effects}; Experiment 1) and the current experiment from the Online Encoding (VLPFC) group to an AUROC analysis. After comparisons of group means in reaction time and accuracy on the recognition test, a regression algorithm was applied to infer the quality of recognition using semantic and phonological features of words. Semantic and phonological features were added to the model and predictive capability was assessed. We predicted that the model would be able to distinguish between  words that are hard and easy to remember in Russian and English speakers. Thus, machine learning algorithms were applied in order to reveal the impact of factors including semantics, phonetics and individual variance to episodic memory performance as well as the interaction with tDCS.
+
+
+
+\section{Methods and Materials}
+
+In line with a replication study, we followed the same procedure as in Experiment 1 of~\cite{medvedeva2019effects} with few exceptions (translation of materials to Russian and comparison of DLPFC and VLPFC as stimulation sites). Broadly, participants memorized words presented individually on a screen while undergoing tDCS (before or during this phase), and 24 hours later they performed a recognition test. The study and test stimuli were translated based on the first word meaning in the vocabulary entry, and the translation achieved relatively matched frequency (\(M_{English} = 24.47\); \(M_{Russian}=40.38\); ~\cite{lyashevskaya2009frequency}) and number of letters (\(M_{English}=6.17\); \(M_{Russian}=6.19\)). Specifically, we applied the same tDCS settings (2 mA active tDCS and 30 s Sham tDCS) over the DLPFC (all conditions: offline, sham, and online) in addition to the VLPFC (online encoding only). 
+The electrodes were placed at both sessions (study and test 24 hours later), but stimulation was only
+delivered before or during the encoding task in the study phase. The anode was placed over the left
+VLPFC (F7) or the left DLPFC (F3), and the cathode was placed over the ipsilateral (left) shoulder. See
+Section~\ref{ss:participants} below for the experimental conditions.
+Stimulation was delivered via a battery-powered, constant-current stimulator (Brainstim, EMS, Bologna, Italy) through \(5 \times 7 cm^2\) electrodes. In addition, participants were asked to describe the sensations that they felt during the stimulation and indicate whether they believed they received real or placebo stimulation. Participants were single-blinded, and the questionnaire indicated that blinding was successful: 80\% believed that they received real stimulation. Data were analyzed in SPSS (version 24; IBM, Armonk, New York) and machine learning studies were conducted in Python (version 3.7).
+
+\subsection{Participants}
+\label{ss:participants}
+Participants were randomly assigned to one out of four groups: VLPFC Online, DLPFC Online, DLPFC Offline and Sham. Based on a power analysis to detect a large effect size~\cite{medvedeva2019effects}, \( d = 1.29; \alpha = 0.05, 1-\beta = .95\)), we aimed to recruit 31 participants per group (124 total), but we analyzed data from 97 participants because of exclusions (see below). Participants (female = 63, male = 49, \(M_{age} = 20.51\), SD=2.89) were native Russian speakers with normal or corrected-to-normal vision and no history of neurological or psychiatric illness. Bonferroni-corrected pairwise comparisons of age between pairs of groups showed a significant difference in age between VLPFC Online (M = 21.76, SD = 3.54) and DLPFC Online (M = 19.21, SD = 1.10), p = .014. However, there were no significant differences in age between the other groups, \(p_s>.062\). 
+
+Data from 12 participants were excluded from analysis because 1) the participant was feeling unwell (2 participants : DLPFC Sham and VLPFC Online) 2) there were technical issues (6 participants: two in DLPFC Online, two in VLPFC Online, and two in DLPFC Sham) or 3) the participant was left-handed (one participant: DLPFC Online) and 4) there was an experimenter error (3 participants: one in DLPFC Sham and two in VLPFC Online). The exclusions resulted in 26 in the VLPFC Online group, 31 in the DLPFC Offline group, 28 in the DLPFC Online group, and 27 in the Sham group. Moreover, fifteen outliers were excluded (see data analysis for criteria), leaving a final sample size of 25 for VLPFC Online (one outlier), 25 for DLPFC Offline (six outliers), 23 for DLPFC Online (five outliers), and 23 for DLPFC Sham (four outliers). For all Machine Learning analysis all DLPFC Offline participants except one were used (30 participants).
+
+The study was approved by the ethics committee of National Research University Higher School of Economics (Moscow, Russia) and followed the corresponding ethical guidelines. All participants provided written informed consent and were given monetary compensation (500 rubles) for their time. 
+
+\subsection{Procedure and Experimental Design}
+Each participant, regardless of group assignment, came to the laboratory twice within a 24 hour-interval: on the first day participants memorized the verbal stimuli one word at a time through pleasantness judgements (pleasant or unpleasant), and on the second day they performed an old/new recognition memory task. For DLPFC Sham, stimulation was delivered for 30 seconds before the stimulator was turned off, and the start of the stimulation corresponded to the start of the reading task for half the Sham participants and the start of the memory task (study phase) for the other half. Stimulation was applied for the entire duration (10 minutes) of the reading task for the DLPFC offline group and for the entire duration (10 minutes) of the study memory task that immediately followed for the VLPFC Online and DLPFC Online groups. In summary, the stimulation was delivered for approximately 10 minutes to cover the entire duration of the reading and memory tasks.
+
+\subsection{Data analysis}
+One-way ANOVAs were conducted for each measure of recognition accuracy~\cite{snodgrass1988pragmatics}: discrimination index (Pr: combined index involving hits and false alarms), proportion of hits (correctly identifying an “old” item as studied), and proportion of false alarms (incorrectly identifying a new item as studied). In addition, one-way ANOVAs were conducted for average reaction times and reaction times for hits and false alarms separately. Finally, a one-way ANOVA was conducted on response bias, an index involving hits and false alarms (higher values indicate a more conservative pattern of responding to old items). Significant effects were followed up with Bonferroni-corrected planned contrasts between each stimulation group and Sham (one-tailed). Outliers were excluded based on two standard deviations from the mean on any of the following dependent measures: discrimination index Pr, proportion of hits, proportion of false alarms, and reaction times for hits or false alarms. 
+
+\subsection{Area Under the Receiver Operating Characteristic Curve as a measure of predictive performance for episodic memory changes}
+For the second analysis including data from the~\cite{medvedeva2019effects}, we included all 17 participants from the Sham group and 17 from the Online tDCS group, resulting in the same mean age with no significant differences between the groups. From the current study, we only included data from the DLPFC Sham (N = 23) and VLPFC Online groups (N = 25) with no significant differences in age between groups (Bonferroni-corrected paired comparisons), \(p_s>.852\). We implemented a \(2 \times 2\) design with the first factor as language (English or Russian) and the second factor as tDCS group (VLPFC or Sham).
+
+Applying Area Under the Receiver Operating Characteristic Curve (AUROC) was appropriate given that the task involved binary classification (coded as 1 if the word was presented at study and 0 if unpresented), which fits any ML approach to measuring predictive performance of classification models~\cite{bradley1997use}. In ML Classification models, true positives represent the model predicting the positive class correctly and false positives represent incorrect prediction of positive class.
+
+AUROC 1) provides information about true and false positives in a single measure 2) shows the source of model error, with larger values indicating that the model predicts better than chance (greater true positives) and 0.5 indicating the opposite and 3) does not assume a normal distribution and is robust to unequal sample sizes (whereas average accuracy measures would overestimate performance). Thus, it is the most suitable measure for the current data.
+
+We included a trial-based approach, computing AUROC for each word based on the entire sample’s responses for that word, and a participant-based approach, computing AUROC for each participant based on responses (old or new) for all words presented to that participant.
+
+AUROC values can show whether tDCS is effective in enhancing memory performance, and the subsequent ML analyses using AUROC can show the effects of various factors (semantic, phonetic, orthographic word characteristics) on recognition of individual words. We attributed any differences in memory performance not explained by differences in sample size, linguistic characteristics, or group (tDCS vs Sham) to individual differences in memory function. 
+
+If stimulation enhances episodic memory performance, we expect a significant increase or decrease in AUROC (both over words and over participants in both VLPFC groups compared to Sham). If tDCS impairs memory performance, we expect values close to 0.5, which reflects that participant response decisions (old or new) approached chance.
+
+If tDCS has no effect, there would be no difference in AUROC values across words or AUROC distributions between VLPFC and Sham. Since tDCS enhanced episodic memory in the original experiment and we expect a successful replication, we expected AUROC values for VLPFC to be significantly different from chance, with significantly different AUROC values and distributions compared to Sham. Moreover, tDCS significantly increased reaction time in~\cite{medvedeva2019effects}, so we predicted a significant difference between VLPFC and Sham in reaction time. Since we did not assume a normal distribution, we applied the two-sample Kolmogorov-Smirnov test for accuracy and reaction time. We have also computed median test for differences in median AUROC.
+
+\subsection{Extraction of semantic, phonological and orthographic determinants of episodic memory performance}
+To investigate the effect of semantic and phonetic features on memorization and the interaction with tDCS, we extracted words with significantly more true positive rates (reflecting hits) and false positive rates (reflecting false alarms) in each group (VLPFC and Sham). We examined the top ten words from each category (see \nameref{S1_Appendix}). A preliminary descriptive analysis of the highest and lowest AUROC-words showed no association between individual variance and memory accuracy in VLPFC and Sham groups. Therefore, we do not report these results further. 
+
+Moreover, we used word embeddings, which approximated the semantic similarities between words. In line with the trial-based and participant-based approaches, we conducted two kinds of ML studies: 1) Participant-independent (trial-based) analysis tests the success of a model that predicts the AUROC for each word using either word embeddings or letter-based one-hot encoding (each letter \(i\) is replaced by a vector of \(N_{alphabet}\) components with the \(i\)-th component being equal to 1 while every other component is zero.) and 2) Participant-specific (participant-based) analysis tests the success of a model that predicts whether a participant was able to recall the word given either word embeddings or letter-based one-hot encoding for each word for individual participants. Word embeddings were applied from FastText~\cite{bojanowski2017enriching}, a library developed in Facebook that incorporates semantic information from each word as well as subwords contained within to embed vectors.  The pretrained embedding was aligned following~\cite{joulin2018loss} so that English and Russian vectors could lie in the same vector space and we could use it to train a model that uses both English and Russian vectors to check whether there are any language-independent semantic determinants. To artificially enlarge the sample size for our models, we use the augmentation approach described in~\cite{zhang2018word} (see \nameref{S2_Appendix} for details). 
+
+For prediction, we applied TPOT~\cite{olson2019tpot}, an automated Machine Learning library that enables searching for the best classification and regression model using Evolutionary Algorithms, and AutoPyTorch~\cite{mendoza2019towards}, an automating Machine Learning library for the PyTorch~\cite{paszke2017automatic} deep learning framework. Pipelines found by TPOT or AutoPyTorch are usually better than those found by grid search or manual construction. TPOT was used for experiments with word vectors, and AutoPyTorch was used for experiments with one-hot encoded word images.
+
+We applied the following parameters: for TPOT, default ones for evolutionary algorithm; 20 for number of generations and 5 for population size; 10 folds for cross-validation; mean absolute error as the scoring function, and ``TPOT light'' as the configuration dictionary, for AutoPyTorch, default validation setup, ``tiny-cs'' config for participant-independent trials and ``medium-cs'' config for participant-dependent trials. 
+
+Prior to training, for each experiment, we have randomly extracted 10\% of the dataset and used it as a hold-out set for test. We trained our AutoML on the rest 90\% with the respective cross-validation schemes and we examine the generalization ability of a model by assessing the difference between the quality metrics on training and hold-out sets. The model could perform very well on training set, but show lack of predictive ability on the hold-out. Such an outcome would be a sign of poor generalization ability which would show that based on this data we can not infer the existence of learnable connection between features and a label.
+
+
+\section{Results}
+
+\subsection{ANOVA}
+Accuracy was significantly above chance for all groups, \(t_s>3.88, p_s<.005\). Levene’s test \((F_s>2.84,  p_s<.042)\) and frequency distributions suggested that most data did not follow a normal distribution. Although non-parametric statistics may be more appropriate than an ANOVA, to enable comparison with the original effect sizes, corrected parametric statistics (Brown-Forsythe’s F statistic) are reported in text for corresponding dependent measures. 
+There were no significant differences between groups in recognition accuracy \(F(3,79.78) = 2.37, p = .076,  \eta^2_p = .082\), response bias \(F(3,93) = 2.15, p = .100, \eta^2_p = .065\), or average reaction time \(F(3,74.26) = 0.70, p = .556,  \eta^2_p = .028\). 
+To enable comparison with the original paper, we report the results of multiple ANOVAs. However, to control for multiple tests and the difference in age between groups, we analyzed all dependent variables including AUROC with a MANOVA, Pillai's trace \((12, 294) = .166, p = .148\), and recognition accuracy and average reaction time with age as a covariate (ANCOVA), \(F(3, 98) = .097\) and \(F(3, 98) = .557\), respectively.
+There was no significant difference between groups with hits, false alarms, recognition accuracy, and average reaction time as dependent variables.
+There was also no significant difference in the proportion of hits \(F(3,76.88) = 1.37, p = .259,  \eta^2_p = .051\),  or associated reaction times \(F(3,75.56) = 0.49, p = .694,  \eta^2_p = .019\). There was a significant difference in proportion of false alarms \(F(3,93) = 2.85, p = .042\) but not associated reaction times \(F(3,70.82) = 0.91, p = .439,  \eta^2_p = .037\). Planned contrasts for false alarms revealed significant differences betzween VLPFC tDCS and Sham \(t(93) = 2.78\) and between Offline DLPFC tDCS and Sham \(t(93) = 2.14, p = .018\), with higher false alarm rates for VLPFC tDCS and Offline DLPFC tDCS. There were no significant differences between Online tDCS and Sham \(t(93) = 1.36, p = .178\). 
+See Table~\ref{tab:memory} for means and standard deviation  for the mean accuracy for each group and Table~\ref{tab:reaction} for means and standard deviation for reaction times
+
+\begin{table}[h!]
+	\caption{\label{tab:memory}\textbf{Means and standard deviations for memory accuracy across groups.}}
+	\begin{tabular}{|p{3cm}|p{0.3cm}|p{2.5cm}|p{2.2cm}|p{1.3cm}|p{1.5cm}|}
+ \hline
+  &   \textbf{N} &  \textbf{Discrimination Pr} &  \textbf{Br response bias} &  \textbf{Pr hits} &  \textbf{Pr false alarms} \\
+ \hline
+\textbf{Online DLPFC mean} &  24 &               0.15 &              0.61 &     0.68 &             0.53 \\ \hline
+\textbf{Online DLPFC SD} &  24 &               0.16 &              0.14 &     0.10 &             0.18 \\ \hline
+\textbf{Offline DLPFC mean} &  25 &               0.07 &              0.60 &     0.63 &             0.57 \\ \hline
+\textbf{Offline DLPFC SD} &  25 &               0.12 &              0.12 &     0.12 &             0.14 \\ \hline
+\textbf{VLPFC mean} &  23 &               0.16 &              0.56 &     0.63 &             0.47 \\ \hline
+\textbf{VLPFC SD} &  23 &               0.18 &              0.17 &     0.16 &             0.18 \\ \hline
+\textbf{Sham mean} &  25 &               0.09 &              0.66 &     0.69 &             0.59 \\ \hline
+\textbf{Sham SD} &  25 &               0.11 &              0.12 &     0.11 &             0.12 \\ \hline
+\bottomrule
+\end{tabular}	
+\end{table}
+
+\begin{table}[h!]
+	\caption{\label{tab:reaction}\textbf{Means and standard deviations for reaction time accuracy across groups.}}
+\begin{tabular}{|p{3.4cm}|p{0.5cm}|p{2.5cm}|p{2.2cm}|p{2.5cm}|}
+\hline
+ &   \textbf{N} &  \textbf{Average RT} &  \textbf{RT hits} &  \textbf{RT false alarms} \\
+\hline
+\textbf{Online DLPFC mean} &  24 &      501.49 &   504.82 &           498.17 \\ \hline
+\textbf{Online DLPFC SD} &  24 &      144.91 &   151.20 &           139.84 \\ \hline
+\textbf{Offline DLPFC mean} &  25 &      503.00 &   505.85 &           500.16 \\ \hline
+\textbf{Offline DLPFC SD} &  25 &      103.62 &   104.71 &           103.66 \\ \hline
+\textbf{VLPFC mean} &  23 &      535.72 &   532.52 &           538.91 \\ \hline
+\textbf{VLPFC SD} &  23 &      156.16 &   142.72 &           171.43 \\ \hline
+\textbf{Sham mean} &  25 &      484.00 &   477.82 &           484.00 \\ \hline
+\textbf{Sham SD} &  25 &       82.58 &    86.10 &            82.58 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection{AUROC Analysis and ML models}
+
+The range of performance as measured by AUROC (0.38-0.62; see Figure~\ref{fig:violins1}) indicates that participant decisions were close to random choice, since an AUC coefficient of 0.75 or higher reliably reflects accurate performance. The VLPFC group shows a similar distribution of individual AUROC coefficients to the Sham group, indicating that there was no effect of tDCS on memorization and perhaps other factors (word characteristics, individual differences, error) contributed more highly. 
+
+\begin{center}
+%\includegraphics[width=\linewidth,height=7cm]{figures/Figure1.png}
+\captionof{figure}{\textbf{Violin plots of AUC distributions for Russian vs English participants in each group.} Panel A shows the Russian sample (p-value of median test is 0.267) and Panel B shows the English sample (p-value of median test is 0.17).}
+\label{fig:violins1}
+\end{center}
+
+Although the distributions of AUROC coefficients for individual words appeared to vary depending on the sample (English or Russian) and group (VLPFC or Sham; see Figure~\ref{fig:violins2}), with the English VLPFC group showing more variance than either of the Sham groups, there was no significant difference in AUROC distributions between English or Russian words or experimental groups, suggesting that the greater variance in the English group reflected smaller sample size. 
+
+
+
+\begin{center}
+%\includegraphics[width=\linewidth,height=7cm]{figures/Figure2.png}
+\captionof{figure}{\textbf{Violin plots showing AUROC distributions for Russian vs English words in each group.} A – all groups (p-value of median test is 0.004), B – sham (p-value of median test is 0.274), C – VLPFC online (p-value of median test is 0.001).}
+\label{fig:violins2}
+\end{center}
+
+We found significant differences in distributions for reaction time between Russian and English words as well as significant differences in distributions between sham and VLPFC online across both samples, \(p<.001\), but no significant difference in median AUROC (p-values are either way larger than 0.001 or borderline – about 0.001-0.004), suggesting that as for the accuracy data, differences in distribution reflected differences in sample size (see Figure~\ref{fig:violins3}). 
+
+
+\begin{center}
+%\includegraphics[width=\linewidth,height=7cm]{figures/Figure3.png}
+\captionof{figure}{\textbf{Reaction time distribution for English and Russian words.}}
+\label{fig:violins3}
+\end{center}
+
+
+Finally, we found no significant contributions of semantic, orthographic, or phonological characteristics of words in terms of predicting the success of participant in recalling the word for participant-independent (see \nameref{S3_Appendix}) or participant-dependent (see \nameref{S4_Appendix}) models. The Spearman correlations for predictions and real labels for hold-out set in prediction of word AUROC were close to zero, the AUROCs of participant-independent models for hold-out set were close to 0.5 with small standard deviation, suggesting that the model did not learn anything useful for prediction of experiment outcome.
+
+
+
+\section{Discussion}
+
+The aim of the current study was to replicate and extend the findings of~\cite{medvedeva2019effects}(Experiment 1) with the VLPFC and DLPFC. However, the effect of tDCS over the left VLPFC (decrease in false recognition) was not replicated, and there were weak, negative effects over the DLPFC in the Offline group. In fact, there was a trend toward increased false alarms after online tDCS over the VLPFC and offline tDCS over the DLPFC compared to Sham. The trend suggests that an increase in false alarms obscured group differences, and the increase in false alarms could be driven by an increase in semantic elaboration that leads to better memory for features common to multiple items~\cite{einstein1980levels, staresina2009event}. While the results do not support effects over the DLPFC and VLPFC, this speaks to the lack of tDCS effect rather than the lack of involvement of these regions in episodic memory. Although it is clear from TMS studies that the VLPFC is necessary for episodic memory, TMS disruption of the DLPFC does not consistently impair episodic memory and the specific roles of both regions remain to be clarified. While meta-analyses and studies aimed at replication of tDCS cognitive effects do not support the effectiveness of tDCS generally~\cite{horvath2015quantitative,vannorsdall2016reproducibility}, the majority of tDCS studies lack deeper explorations of non-linear effects and individual differences through modelling and ML~\cite{peterchev2017neuromodulation}. In our case, a limitation was not estimating whether maximum current flow was underneath the anode electrode and at the region of interest (VLPFC or DLPFC). However, the aim of the current study was to clarify the consistency of the effect found in the original study using an identical method, including montage. Future studies could test a montage with greatest likelihood of current flow at the region of interest by modeling current density maxima. More insight is needed into the relationship between biological and cognitive effects. For example, future studies could attempt to classify groups by using concurrent EEG activity during tDCS administration.  However, even tDCS-EEG studies alone may not be beneficial because EEG reflects the synchronized firing of large populations of neurons across the brain (not just the stimulated region), and the neural signature is not always modulated by changes in cognitive performance. Thus, more sensitive measures of tDCS cognitive and neural effects can be implemented, such as changes in resting-state connectivity~\cite{stagg2014local}, GABA and glutamate concentrations~\cite{bachtiar2015modulation}, and cerebral blood flow~\cite{paquette2011bilateral}. It remains unclear whether the significant tDCS modulation of long-term verbal encoding in the original study occurred through modulation of related processes such as lexical retrieval, working memory, or attention. For example, tDCS has been shown to modulate the speed of vocabulary learning but not final vocabulary recall over multiple sessions~\cite{meinzer2014transcranial}. Moreover, atDCS over the VLPFC led to improved semantic processing in language tasks~\cite{pisoni2015guess} such as naming common objects~\cite{fertonani2010naming} and working memory tasks~\cite{fregni2005anodal}. Thus, tDCS could modulate a semantic process or working memory maintenance that contributes to long-term memory rather than the formation of the memory trace, which is thought to rely more on the hippocampus~\cite{olsen2012hippocampus,staresina2009mind}. Individual differences in baseline memory performance, correlated cognitive functions, and neuroanatomy could obscure the effect of tDCS on measures of memory performance, especially if the effect is subtle. It is clear that effects of tDCS on physiology may not correspond with cognitive effects, and future studies can better explore this relationship with physiological as well as cognitive measures and by estimating the current density maxima. 
+It is notable that using AUROC we could not discriminate  hard and easy to remember words in Experiment 1 of~\cite{medvedeva2019effects}: the AUC curve revealed no significant effect of VLPFC tDCS on English or Russian speakers. Although average memory accuracy was above chance, AUC suggested that when considering individual trials, participants were guessing. Future studies can test the reliability of the recognition test as an assessment for tDCS-induced cognitive effects and try to increase participant motivation and concentration to attain optimal trial-by-trial performance for examining tDCS-induced changes. The ML analysis showed that phonological, semantic, and orthographic features did not influence the episodic memory. Although it is likely that these features contributed to memory formation, their influence was minimal and overshadowed by the large interaction between atDCS and individual differences. This individual variability has been examined in other studies that found differences between high and low performers (e.g.~\cite{habich2017anodal}). Individual differences in baseline memory performance and encoding ability appear to be an influential factor, more than language or word characteristics. The results indicate that individual differences may be one of the most important parameters not only in the current study and tDCS field but also in replication studies. A limitation was that we did not conduct a within-subjects study in which we examined differences in individual performance. A replication of a within-subjects study could reveal that the effect of a between-subjects study was due to differences between participants and when participants are compared to their own performance, there is little effect of tDCS. Indeed, studies including~\cite{medvedeva2019effects} have found varying effects when comparing between-subjects to within-subjects tDCS effects over the same location, with potentially smaller or absent effects for within-subjects studies (e.g. compare between-subjects results in~\cite{sandrini2014noninvasive,
+gray2015electrically,matzen2015effects,pisoni2015guess}  and Experiment 1 in~\cite{medvedeva2019effects} to within-subjects results in Experiment 3 in~\cite{medvedeva2019effects}; Experiment 2 in~\cite{smirni2015modulating} and ~\cite{manenti2013enhancing}.
+Furthermore, it is important to identify the reliability of tDCS effects with direct replications within the same lab as well as other labs~\cite{cesario2014priming} with sufficiently large sample sizes. However, continued future examinations of tDCS cognitive effects may have less value if not supplemented with a measure of biological effects. Future data-driven studies should aim to predict when physiological effects such as increases in BOLD activation lead to cognitive outcomes such as higher performance and whether duration and frequency of tDCS are involved.   
+Although the sample size of the current study should have had sufficient statistical power to detect the original effect size (\cite{medvedeva2019effects}, Experiment 1), the true effect size could still be eluded because of a statistical phenomenon known as the “winner’s curse”. The winner’s curse posits that the first studies to find a significant and novel effect will be published, and the reported effect will be exaggerated because these studies tend to be exploratory and include smaller sample sizes. If several small-sample studies are investigating the same effect, random error and sampling variation may lead to one but not all of the studies finding an effect that crosses significance threshold because under-powered studies can only find large effects. The true effect is likely to be smaller, so it would not otherwise emerge in under-powered studies. This phenomenon is illustrated well in the meta-analysis by~\cite{galli2019systematic}, in which most included articles reported at least one significant effect, but the average effect size was close to zero when all studies were included in the analysis. For example,~\cite{jones2014enhanced} found an effect of atDCS in their first experiment but not in a subsequent replication in the same paper. The conclusion of~\cite{minarik2016importance} is in line with the “winner’s curse” effect, while the authors suggest a smaller sample size (between \(d = .40\) and \(d = .50\) according to Cohen, 1988) as more appropriate for tDCS studies.  
+We did not successfully replicate the results of the previous work, although we used a larger sample size and nearly identical method. It is worth mentioning that the results of the replicated study are not significant based on the ANOVA (and this statistical model is appropriate for the original study) or the AUROC analysis applied to both datasets. It does not seem that there was a cultural or linguistic component involved, in line with previous tDCS experiments that found similar effects on verbal memory performance between countries (Italy:~\cite{pisoni2015guess}; England:~\cite{medvedeva2019effects}; USA:~\cite{matzen2015effects}). However, culture-dependent tDCS should be tested directly by comparing individuals of different cultures in the same language. We would expect culture-dependent effects in social cognition (e.g.~\cite{meinzer2014transcranial}) but not in processes such as memory encoding that are thought to rely on the same neural architecture across people. In the current study, tDCS did not lead to significant differences in memory performance or reaction time. While it seems unlikely that the significant effect in the original study was due to sample size alone, we conclude based on the lack of replication that the effect of tDCS on long-term verbal memory when the anode is placed over the VLPFC or DLPFC may be subtle. Moreover, the effect may be completely obscured during interactions with other factors that may be difficult to measure or quantify, such as the state of the network. Regression approaches could be successful for future studies that model interactions between biological and cognitive effects. In spite of the significant tDCS effects found in previous memory studies, we suggest caution in interpreting these effects and applying tDCS as a neuromodulator until replications are conducted with biomarkers.
+
+
+
+
+\section*{Supporting information}
+
+% Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
+\paragraph*{S1 Appendix.}
+\label{S1_Appendix}
+{\bf Significantly different words.} Russian and English words that differ significantly in the number of hits, false alarms, AUROC and reaction time.
+
+\paragraph*{S2 Appendix.}
+\label{S2_Appendix}
+{\bf Data Augmentations.} The procedures used to augment the training set according to the method proused in \cite{zhang2018word}.
+
+\paragraph*{S3 Appendix.}
+\label{S3_Appendix}
+{\bf Participant-Independent ML Trials.}  The performance of participant-independent TPOT and AutoPytorch models.
+
+\paragraph*{S4 Appendix.}
+\label{S4_Appendix}
+{\bf Participant-Dependent ML Trials.}  The performance of participant-independent TPOT and AutoPytorch models.
+
+\section*{Acknowledgments}
+
+The article was prepared within the framework of the HSE University Basic Research Program and funded by the Russian Academic Excellence Project '5-100'. This study used the HSE Synchronous Eye-tracking, Brain Signal Recording and Non-Invasive Brain Stimulation System. We are grateful for the assistance of Anastasiya Bogdanova and Daniil Krivenok in data collection. We are grateful to Rebecca Saw for her assistance in proofreading.
+
+Competing interests: We declare no competing interests.
+
+%\bibliography{references}
+
+\begin{thebibliography}{10}
+
+\bibitem{polania2018studying}
+Polania R, Nitsche MA, Ruff CC.
+\newblock Studying and modifying brain function with non-invasive brain
+  stimulation.
+\newblock Nature neuroscience. 2018;21(2):174--187.
+
+\bibitem{galli2019systematic}
+Galli G, Vadillo MA, Sirota M, Feurra M, Medvedeva A.
+\newblock A systematic review and meta-analysis of the effects of transcranial
+  direct current stimulation (tDCS) on episodic memory.
+\newblock Brain stimulation. 2019;12(2):231--241.
+
+\bibitem{floel2004prefrontal}
+Floel A, Poeppel D, Buffalo EA, Braun A, Wu CWH, Seo HJ, et~al.
+\newblock Prefrontal cortex asymmetry for memory encoding of words and abstract
+  shapes.
+\newblock Cerebral Cortex. 2004;14(4):404--409.
+
+\bibitem{jacobson2012oppositional}
+Jacobson L, Goren N, Lavidor M, Levy DA.
+\newblock Oppositional transcranial direct current stimulation (tDCS) of
+  parietal substrates of attention during encoding modulates episodic memory.
+\newblock Brain research. 2012;1439:66--72.
+
+\bibitem{leach2019differential}
+Leach RC, McCurdy MP, Trumbo MC, Matzen LE, Leshikar ED.
+\newblock Differential age effects of transcranial direct current stimulation
+  on associative memory.
+\newblock The Journals of Gerontology: Series B. 2019;74(7):1163--1173.
+
+\bibitem{manenti2013enhancing}
+Manenti R, Brambilla M, Petesi M, Ferrari C, Cotelli M.
+\newblock Enhancing verbal episodic memory in older and young subjects after
+  non-invasive brain stimulation.
+\newblock Frontiers in aging neuroscience. 2013;5:49.
+
+\bibitem{lafontaine2013transcranial}
+Lafontaine MP, Theoret H, Gosselin F, Lippe S.
+\newblock Transcranial direct current stimulation of the dorsolateral
+  prefrontal cortex modulates repetition suppression to unfamiliar faces: an
+  ERP study.
+\newblock PloS one. 2013;8(12).
+
+\bibitem{javadi2013transcranial}
+Javadi AH, Cheng P.
+\newblock Transcranial direct current stimulation (tDCS) enhances
+  reconsolidation of long-term memory.
+\newblock Brain stimulation. 2013;6(4):668--674.
+
+\bibitem{javadi2012transcranial}
+Javadi AH, Walsh V.
+\newblock Transcranial direct current stimulation (tDCS) of the left
+  dorsolateral prefrontal cortex modulates declarative memory.
+\newblock Brain stimulation. 2012;5(3):231--241.
+
+\bibitem{giordano2017mechanisms}
+Giordano J, Bikson M, Kappenman ES, Clark VP, Coslett HB, Hamblin MR, et~al.
+\newblock Mechanisms and effects of transcranial direct current stimulation.
+\newblock Dose-Response. 2017;15(1):1559325816685467.
+
+\bibitem{heroux2017questionable}
+Heroux ME, Loo CK, Taylor JL, Gandevia SC.
+\newblock Questionable science and reproducibility in electrical brain
+  stimulation research.
+\newblock PloS one. 2017;12(4).
+
+\bibitem{manenti2012transcranial}
+Manenti R, Cotelli M, Robertson IH, Miniussi C.
+\newblock Transcranial brain stimulation studies of episodic memory in young
+  adults, elderly adults and individuals with memory dysfunction: a review.
+\newblock Brain Stimulation. 2012;5(2):103--109.
+
+\bibitem{szczepanski2014insights}
+Szczepanski SM, Knight RT.
+\newblock Insights into human behavior from lesions to the prefrontal cortex.
+\newblock Neuron. 2014;83(5):1002--1018.
+
+\bibitem{fuster2000executive}
+Fuster JM.
+\newblock Executive frontal functions.
+\newblock Experimental brain research. 2000;133(1):66--70.
+
+\bibitem{habich2017anodal}
+Habich A, Kl{\"o}ppel S, Abdulkadir A, Scheller E, Nissen C, Peter J.
+\newblock Anodal tDCS enhances verbal episodic memory in initially low
+  performers.
+\newblock Frontiers in human neuroscience. 2017;11:542.
+
+\bibitem{nyberg1996pet}
+Nyberg L, Cabeza R, Tulving E.
+\newblock PET studies of encoding and retrieval: The HERA model.
+\newblock Psychonomic Bulletin \& Review. 1996;3(2):135--148.
+
+\bibitem{lara2017anodal}
+Lara GAd, Knechtges PN, Paulus W, Antal A.
+\newblock Anodal tDCS over the left DLPFC did not affect the encoding and
+  retrieval of verbal declarative information.
+\newblock Frontiers in neuroscience. 2017;11:452.
+
+\bibitem{zwissler2014shaping}
+Zwissler B, Sperber C, Aigeldinger S, Schindler S, Kissler J, Plewnia C.
+\newblock Shaping memory accuracy by left prefrontal transcranial direct
+  current stimulation.
+\newblock Journal of Neuroscience. 2014;34(11):4022--4026.
+
+\bibitem{brunoni2014working}
+Brunoni AR, Vanderhasselt MA.
+\newblock Working memory improvement with non-invasive brain stimulation of the
+  dorsolateral prefrontal cortex: a systematic review and meta-analysis.
+\newblock Brain and cognition. 2014;86:1--9.
+
+\bibitem{dedoncker2016systematic}
+Dedoncker J, Brunoni AR, Baeken C, Vanderhasselt MA.
+\newblock A systematic review and meta-analysis of the effects of transcranial
+  direct current stimulation (tDCS) over the dorsolateral prefrontal cortex in
+  healthy and neuropsychiatric samples: influence of stimulation parameters.
+\newblock Brain stimulation. 2016;9(4):501--517.
+
+\bibitem{dedoncker2016effect}
+Dedoncker J, Brunoni AR, Baeken C, Vanderhasselt MA.
+\newblock The effect of the interval-between-sessions on prefrontal
+  transcranial direct current stimulation (tDCS) on cognitive outcomes: a
+  systematic review and meta-analysis.
+\newblock Journal of Neural Transmission. 2016;123(10):1159--1172.
+
+\bibitem{medvedeva2019effects}
+Medvedeva A, Materassi M, Neacsu V, Beresford-Webb J, Hussin A, Khan N, et~al.
+\newblock Effects of anodal transcranial direct current stimulation over the
+  ventrolateral prefrontal cortex on episodic memory formation and retrieval.
+\newblock Cerebral Cortex. 2019;29(2):657--665.
+
+\bibitem{murray2007dorsolateral}
+Murray LJ, Ranganath C.
+\newblock The dorsolateral prefrontal cortex contributes to successful
+  relational memory encoding.
+\newblock Journal of Neuroscience. 2007;27(20):5515--5522.
+
+\bibitem{blumenfeld2007prefrontal}
+Blumenfeld RS, Ranganath C.
+\newblock Prefrontal cortex and long-term memory encoding: an integrative
+  review of findings from neuropsychology and neuroimaging.
+\newblock The Neuroscientist. 2007;13(3):280--291.
+
+\bibitem{blumenfeld2011putting}
+Blumenfeld RS, Parks CM, Yonelinas AP, Ranganath C.
+\newblock Putting the pieces together: the role of dorsolateral prefrontal
+  cortex in relational memory encoding.
+\newblock Journal of cognitive neuroscience. 2011;23(1):257--265.
+
+\bibitem{blumenfeld2013lateral}
+Blumenfeld RS, Nomura EM, Gratton C, D'Esposito M.
+\newblock Lateral prefrontal cortex is organized into parallel dorsal and
+  ventral streams along the rostro-caudal axis.
+\newblock Cerebral Cortex. 2013;23(10):2457--2466.
+
+\bibitem{blumenfeld2006dorsolateral}
+Blumenfeld RS, Ranganath C.
+\newblock Dorsolateral prefrontal cortex promotes long-term memory formation
+  through its role in working memory organization.
+\newblock Journal of Neuroscience. 2006;26(3):916--925.
+
+\bibitem{hawco2013dorsolateral}
+Hawco C, Berlim MT, Lepage M.
+\newblock The dorsolateral prefrontal cortex plays a role in self-initiated
+  elaborative cognitive processing during episodic memory encoding: rTMS
+  evidence.
+\newblock PLoS One. 2013;8(9).
+
+\bibitem{hammer2011errorless}
+Hammer A, Mohammadi B, Schmicker M, Saliger S, M{\"u}nte TF.
+\newblock Errorless and errorful learning modulated by transcranial direct
+  current stimulation.
+\newblock BMC neuroscience. 2011;12(1):72.
+
+\bibitem{takahashi2007diffusion}
+Takahashi E, Ohki K, Kim DS.
+\newblock Diffusion tensor studies dissociated two fronto-temporal pathways in
+  the human memory system.
+\newblock Neuroimage. 2007;34(2):827--838.
+
+\bibitem{raposo2009ventrolateral}
+Raposo A, Han S, Dobbins IG.
+\newblock Ventrolateral prefrontal cortex and self-initiated semantic
+  elaboration during memory retrieval.
+\newblock Neuropsychologia. 2009;47(11):2261--2271.
+
+\bibitem{sandrini2014noninvasive}
+Sandrini M, Brambilla M, Manenti R, Rosini S, Cohen LG, Cotelli M.
+\newblock Noninvasive stimulation of prefrontal cortex strengthens existing
+  episodic memories and reduces forgetting in the elderly.
+\newblock Frontiers in aging neuroscience. 2014;6:289.
+
+\bibitem{lu2015spatiotemporal}
+Lu Y, Wang C, Chen C, Xue G.
+\newblock Spatiotemporal neural pattern similarity supports episodic memory.
+\newblock Current Biology. 2015;25(6):780--785.
+
+\bibitem{pisoni2015guess}
+Pisoni A, Vernice M, Iasevoli L, Cattaneo Z, Papagno C.
+\newblock Guess who? Investigating the proper name processing network by means
+  of tDCS.
+\newblock Neuropsychologia. 2015;66:267--278.
+
+\bibitem{balzarotti2016effects}
+Balzarotti S, Colombo B.
+\newblock Effects of unilateral transcranial direct current stimulation of left
+  prefrontal cortex on processing and memory of emotional visual stimuli.
+\newblock PloS one. 2016;11(7).
+
+\bibitem{pergolizzi2016transcranial}
+Pergolizzi D, Chua EF.
+\newblock Transcranial direct current stimulation over the parietal cortex
+  alters bias in item and source memory tasks.
+\newblock Brain and cognition. 2016;108:56--65.
+
+\bibitem{blumenfeld2014effects}
+Blumenfeld RS, Lee TG, D’Esposito M.
+\newblock The effects of lateral prefrontal transcranial magnetic stimulation
+  on item memory encoding.
+\newblock Neuropsychologia. 2014;53:197--202.
+
+\bibitem{lyashevskaya2009frequency}
+Lyashevskaya ON, Sharov SA.
+\newblock Frequency dictionary of the modern Russian language (the Russian
+  National Corpus).
+\newblock М: Azbukovnik (in Russian). 2009;.
+
+\bibitem{snodgrass1988pragmatics}
+Snodgrass JG, Corwin J.
+\newblock Pragmatics of measuring recognition memory: applications to dementia
+  and amnesia.
+\newblock Journal of experimental psychology: General. 1988;117(1):34.
+
+\bibitem{bradley1997use}
+Bradley AP.
+\newblock The use of the area under the ROC curve in the evaluation of machine
+  learning algorithms.
+\newblock Pattern recognition. 1997;30(7):1145--1159.
+
+\bibitem{bojanowski2017enriching}
+Bojanowski P, Grave E, Joulin A, Mikolov T.
+\newblock Enriching word vectors with subword information.
+\newblock Transactions of the Association for Computational Linguistics.
+  2017;5:135--146.
+
+\bibitem{joulin2018loss}
+Joulin A, Bojanowski P, Mikolov T, J{\'e}gou H, Grave E.
+\newblock Loss in translation: Learning bilingual word mapping with a retrieval
+  criterion.
+\newblock arXiv preprint arXiv:180407745. 2018;.
+
+\bibitem{zhang2018word}
+Zhang D, Yang Z.
+\newblock Word embedding perturbation for sentence classification.
+\newblock arXiv preprint arXiv:180408166. 2018;.
+
+\bibitem{olson2019tpot}
+Olson RS, Moore JH.
+\newblock TPOT: A tree-based pipeline optimization tool for automating machine
+  learning.
+\newblock In: Automated Machine Learning. Springer; 2019. p. 151--160.
+
+\bibitem{mendoza2019towards}
+Mendoza H, Klein A, Feurer M, Springenberg JT, Urban M, Burkart M, et~al.
+\newblock Towards automatically-tuned deep neural networks.
+\newblock In: Automated Machine Learning. Springer; 2019. p. 135--149.
+
+\bibitem{paszke2017automatic}
+Paszke A, Gross S, Chintala S, Chanan G, Yang E, DeVito Z, et~al.
+\newblock Automatic differentiation in pytorch.
+\newblock In: Proceedings of Neural Information Processing Systems; 2017.
+
+\bibitem{einstein1980levels}
+Einstein GO, Hunt RR.
+\newblock Levels of processing and organization: Additive effects of
+  individual-item and relational processing.
+\newblock Journal of experimental Psychology: Human learning and Memory.
+  1980;6(5):588.
+
+\bibitem{staresina2009event}
+Staresina BP, Gray JC, Davachi L.
+\newblock Event congruency enhances episodic memory encoding through semantic
+  elaboration and relational binding.
+\newblock Cerebral Cortex. 2009;19(5):1198--1207.
+
+\bibitem{horvath2015quantitative}
+Horvath JC, Forte JD, Carter O.
+\newblock Quantitative review finds no evidence of cognitive effects in healthy
+  populations from single-session transcranial direct current stimulation
+  (tDCS).
+\newblock Brain stimulation. 2015;8(3):535--550.
+
+\bibitem{vannorsdall2016reproducibility}
+Vannorsdall TD, Van~Steenburgh JJ, Schretlen DJ, Jayatillake R, Skolasky RL,
+  Gordon B.
+\newblock Reproducibility of tDCS results in a randomized trial: failure to
+  replicate findings of tDCS-induced enhancement of verbal fluency.
+\newblock Cognitive and Behavioral Neurology. 2016;29(1):11--17.
+
+\bibitem{peterchev2017neuromodulation}
+Peterchev AV.
+\newblock Neuromodulation: Transcranial electric stimulation seen from within
+  the brain.
+\newblock Elife. 2017;6:e25812.
+
+\bibitem{stagg2014local}
+Stagg CJ, Bachtiar V, Amadi U, Gudberg CA, Ilie AS, Sampaio-Baptista C, et~al.
+\newblock Local GABA concentration is related to network-level resting
+  functional connectivity.
+\newblock Elife. 2014;3:e01465.
+
+\bibitem{bachtiar2015modulation}
+Bachtiar V, Near J, Johansen-Berg H, Stagg CJ.
+\newblock Modulation of GABA and resting state functional connectivity by
+  transcranial direct current stimulation.
+\newblock Elife. 2015;4:e08789.
+
+\bibitem{paquette2011bilateral}
+Paquette C, Sidel M, Radinska BA, Soucy JP, Thiel A.
+\newblock Bilateral transcranial direct current stimulation modulates
+  activation-induced regional blood flow changes during voluntary movement.
+\newblock Journal of Cerebral Blood Flow \& Metabolism. 2011;31(10):2086--2095.
+
+\bibitem{meinzer2014transcranial}
+Meinzer M, J{\"a}hnigen S, Copland DA, Darkow R, Grittner U, Avirame K, et~al.
+\newblock Transcranial direct current stimulation over multiple days improves
+  learning and maintenance of a novel vocabulary.
+\newblock Cortex. 2014;50:137--147.
+
+\bibitem{fertonani2010naming}
+Fertonani A, Rosini S, Cotelli M, Rossini PM, Miniussi C.
+\newblock Naming facilitation induced by transcranial direct current
+  stimulation.
+\newblock Behavioural brain research. 2010;208(2):311--318.
+
+\bibitem{fregni2005anodal}
+Fregni F, Boggio PS, Nitsche M, Bermpohl F, Antal A, Feredoes E, et~al.
+\newblock Anodal transcranial direct current stimulation of prefrontal cortex
+  enhances working memory.
+\newblock Experimental brain research. 2005;166(1):23--30.
+
+\bibitem{olsen2012hippocampus}
+Olsen RK, Moses SN, Riggs L, Ryan JD.
+\newblock The hippocampus supports multiple cognitive processes through
+  relational binding and comparison.
+\newblock Frontiers in human neuroscience. 2012;6:146.
+
+\bibitem{staresina2009mind}
+Staresina BP, Davachi L.
+\newblock Mind the gap: binding experiences across space and time in the human
+  hippocampus.
+\newblock Neuron. 2009;63(2):267--276.
+
+\bibitem{gray2015electrically}
+Gray SJ, Brookshire G, Casasanto D, Gallo DA.
+\newblock Electrically stimulating prefrontal cortex at retrieval improves
+  recollection accuracy.
+\newblock Cortex. 2015;73:188--194.
+
+\bibitem{matzen2015effects}
+Matzen LE, Trumbo MC, Leach RC, Leshikar ED.
+\newblock Effects of non-invasive brain stimulation on associative memory.
+\newblock Brain research. 2015;1624:286--296.
+
+\bibitem{smirni2015modulating}
+Smirni D, Turriziani P, Mangano GR, Cipolotti L, Oliveri M.
+\newblock Modulating memory performance in healthy subjects with transcranial
+  direct current stimulation over the right dorsolateral prefrontal cortex.
+\newblock PloS one. 2015;10(12).
+
+\bibitem{cesario2014priming}
+Cesario J.
+\newblock Priming, replication, and the hardest science.
+\newblock Perspectives on psychological science. 2014;9(1):40--48.
+
+\bibitem{jones2014enhanced}
+Jones KT, G{\"o}zenman F, Berryhill ME.
+\newblock Enhanced long-term memory encoding after parietal neurostimulation.
+\newblock Experimental brain research. 2014;232(12):4043--4054.
+
+\bibitem{minarik2016importance}
+Minarik T, Berger B, Althaus L, Bader V, Biebl B, Brotzeller F, et~al.
+\newblock The importance of sample size for reproducibility of tDCS effects.
+\newblock Frontiers in Human Neuroscience. 2016;10:453.
+
+\end{thebibliography}
+
+
+\end{document}
