@@ -2,7 +2,7 @@
 Sources for "Examining the effects of transcranial direct current stimulation on human episodic memory with machine learning"
 
 ## The paper
-Published paper - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0235179
+Published paper - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0235179      
 Biorxiv preprint - https://www.biorxiv.org/content/10.1101/2020.06.11.145805v1
 
 ## The data
